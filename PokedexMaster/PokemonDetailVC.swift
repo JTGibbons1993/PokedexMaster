@@ -11,8 +11,10 @@ import UIKit
 class PokemonDetailVC: UIViewController {
     
     var pokemon: Pokemon!
+    
+   
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var mainImg: UIImageView!
+    @IBOutlet weak var mainImg: UIImageView! //before making connection the circle was already filled
     @IBOutlet weak var descLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var DefenseLabel: UILabel!
@@ -21,16 +23,16 @@ class PokemonDetailVC: UIViewController {
     @IBOutlet weak var IDLabel: UILabel!
     @IBOutlet weak var BaseAtkLabel: UILabel!
     @IBOutlet weak var currentEvoImg: UIImageView!
-    @IBOutlet weak var nextEvoImg: UIImageView!
+    @IBOutlet weak var nextEvoImg: UIImageView! //before making connection the circle was already filled
     @IBOutlet weak var evoLabel: UILabel!
     
-    
+ 
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = pokemon.name
+       nameLabel.text = pokemon.name
 
     }
 
