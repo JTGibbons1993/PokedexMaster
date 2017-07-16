@@ -33,7 +33,14 @@ class PokemonDetailVC: UIViewController {
         super.viewDidLoad()
         
         nameLabel.text = pokemon.name.capitalized
-       
+        
+        let img = UIImage(named: String(pokemon.pokedexId))
+        mainImg.image = img
+        currentEvoImg.image = img
+        IDLabel.text = String(pokemon.pokedexId)
+     //   nextEvoImg.image = UIImage(named: String(pokemon.pokedexId + 1))
+     //   evoLabel.text = "Next Evolution: \()"
+        
         pokemon.pokemonDownloadDetails {
             //will only be called after the network call is complete
             
@@ -43,7 +50,13 @@ class PokemonDetailVC: UIViewController {
     }
     
     func updateUI() {
-        //attackLbl.text = ...
+        BaseAtkLabel.text = pokemon.attack
+        DefenseLabel.text = pokemon.defense
+        hLabel.text = pokemon.height
+        wLabel.text = pokemon.weight
+        typeLabel.text = pokemon.type
+        descLabel.text = pokemon.description
+        
     }
 
     @IBAction func backButtonPressed(_ sender: UIButton) {

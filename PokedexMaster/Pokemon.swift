@@ -84,7 +84,6 @@ class Pokemon {
     }
     
     func pokemonDownloadDetails(completed: @escaping DownloadComplete) {
-     
         Alamofire.request(_pokemonURL).responseJSON { response in
             if let dict = response.result.value as? [String:AnyObject] {
                 if let weight = dict["weight"] as? String {
@@ -99,10 +98,37 @@ class Pokemon {
                 if let defense = dict["defense"] as? Int {
                     self._defense = "\(defense)"
                 }
-                print(self._weight)
-                 print(self._height)
-                 print(self._attack)
-                print(self._defense)
+         
+                if let types = dict["types"] as? [[String:String]] , types.count > 0 {
+                    if let type = types[0]["name"] {
+                        self._type = type.capitalized
+                        
+                    }
+                    if types.count > 1 {
+                        for x in 1..<types.count{
+                            if let name = types[x]["name"] {
+                                self._type! += "/\(name.capitalized)"
+                            }
+                        }
+                    }
+                }
+                if let descArray = dict["description"] as? [[String:String]], descArray.count > 0 {
+                    if let url = descArray[0]["resource_uri"] {
+                        let descURL = URL_BASE + url
+                        print(descURL)
+                        Alamofire.request(descURL).responseJSON {response in
+                            if let descResult = response.result.value as? [String: AnyObject] {
+                                if let description = descResult["description"] as? String {
+                                    let newDescription = description.replacingOccurrences(of: "POKMON", with: "Pokemon")
+                                    self._description = newDescription.capitalized
+                                    print("!!!!\(newDescription)")
+                                }
+                            }
+                            completed()
+                        }
+                    }
+                }
+                
             }
             completed()
         }
