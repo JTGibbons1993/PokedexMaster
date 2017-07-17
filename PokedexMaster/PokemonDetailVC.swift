@@ -38,6 +38,7 @@ class PokemonDetailVC: UIViewController {
         mainImg.image = img
         currentEvoImg.image = img
         IDLabel.text = String(pokemon.pokedexId)
+        
      //   nextEvoImg.image = UIImage(named: String(pokemon.pokedexId + 1))
      //   evoLabel.text = "Next Evolution: \()"
         
@@ -56,6 +57,20 @@ class PokemonDetailVC: UIViewController {
         wLabel.text = pokemon.weight
         typeLabel.text = pokemon.type
         descLabel.text = pokemon.description
+        
+        if pokemon.nextEvolutionID == "" {
+            evoLabel.text = "No Evolutions"
+            nextEvoImg.isHidden = true
+        } else {
+            if pokemon.nextEvolutionLevel == ""{
+                evoLabel.text = "Next Evolution: \(pokemon.nextEvolutionName.capitalized)"
+            } else {
+                evoLabel.text = "Next Evolution: \(pokemon.nextEvolutionName.capitalized) - LVL \(pokemon.nextEvolutionLevel)"
+            }
+            nextEvoImg.isHidden = false
+            nextEvoImg.image = UIImage(named: pokemon.nextEvolutionID)
+        }
+        
         
     }
 
